@@ -1,0 +1,42 @@
+import csv
+import pandas as pd
+
+'''
+Función para leer los archivos csv
+'''
+def leer_csv(archivo_csv):
+    datos = []
+    with open(archivo_csv, 'r', newline='') as archivo:
+        lector_csv = csv.DictReader(archivo)
+        for fila in lector_csv:
+            datos.append(fila)
+    return datos
+
+
+'''
+Función para leer los archivos excel
+'''
+def leer_excel(archivo_excel):
+    try:
+        datos = pd.read_excel(archivo_excel)
+        return datos
+    except Exception as e:
+        print(f"Error al leer el archivo Excel: {e}")
+        return None
+
+
+if __name__ == '__main':
+    # LEER EL ARCHIVO CSV
+    nombre_archivo_csv = 'housing.csv'
+    datos_leidos_csv = leer_csv(nombre_archivo_csv)
+    # Accedemos a los datos como una lista de diccionarios:
+    for fila in datos_leidos_csv:
+        print(fila)
+
+
+    # LEER ARCHIVO EXCEL (XLSX)
+    nombre_archivo_excel = 'housing.xlsx'
+    datos_leidos_excel = leer_excel(nombre_archivo_excel)
+
+    if datos_leidos_excel is not None:
+        print(datos_leidos_excel)
